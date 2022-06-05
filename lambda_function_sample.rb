@@ -11,7 +11,7 @@ SLACK_WEBHOOK_URL = URI.parse(ENV["SLACK_WEBHOOK_URL"])
 def lambda_handler(event:, context:)
   qs = parse_qs(event)
   unless qs['token'] == ENV["SLACK_TOKEN"]
-    return { statusCode: 200, body: 'ERROR: unautholized' }
+    return { statusCode: 200, body: 'ERROR: authorized' }
   end
 
   case qs['type']
@@ -54,7 +54,7 @@ def message(user, value=nil)
       "emoji": true
     }
   }]
-	if next_values.count > 0
+  if next_values.count > 0
     blocks.push(
       {
         "type": "actions",

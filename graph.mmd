@@ -1,0 +1,35 @@
+graph TD;
+  emp([S])
+  hadBreak[直近3時間以内に<br />コーヒーを飲む以外のことを<br />何もしない時間があった]
+  hasWipJob[自分が手をつけている仕事で<br />他の人に引き渡せない状態のものがある]
+  isTheJobFine[終了条件及びそこまでの道筋が明確である]
+  existsPr[openなプルリクが存在する]
+  hasSomeComplainForExistingCode[コードに不満がある]
+  feelLackOfPower[力不足を感じている]
+
+  getBreak([休め])
+  askForHelp(助けを求めよう)
+  completeYourJob(その仕事や課題の完了を目指して取り組もう)
+  reviewSomePr(プルリクレビューをしよう)
+  refactorTheCode(リファクタリングをしよう)
+  fixExistingBug(既知の問題-issue-を修正しよう)
+
+  emp --> hadBreak
+
+  hadBreak -- YES --> hasWipJob
+  hadBreak -- NO --> getBreak
+
+  hasWipJob -- YES --> isTheJobFine
+  hasWipJob -- NO --> existsPr
+
+  existsPr -- YES --> reviewSomePr
+  existsPr -- NO --> hasSomeComplainForExistingCode
+
+  hasSomeComplainForExistingCode -- YES --> refactorTheCode
+  hasSomeComplainForExistingCode -- NO --> feelLackOfPower
+
+  feelLackOfPower -- YES --> isTheJobFine
+  feelLackOfPower -- NO --> fixExistingBug
+
+  isTheJobFine -- YES --> completeYourJob
+  isTheJobFine -- NO --> askForHelp

@@ -11,7 +11,7 @@ SLACK_WEBHOOK_URL = URI.parse(ENV["SLACK_WEBHOOK_URL"])
 def lambda_handler(event:, context:)
   qs = parse_qs(event)
   unless qs['token'] == ENV["SLACK_TOKEN"]
-    return { statusCode: 200, body: 'ERROR: authorized' }
+    return { statusCode: 200, body: 'ERROR: unauthorized' }
   end
 
   case qs['type']
